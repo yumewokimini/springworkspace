@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<beans:bean id="tv" class="com.yedam.app.spring.TV" />
+
+	<!-- di : xml 방식 -->
+	<bean class="com.yedam.app.xml.Restaurant" />
+	<!-- <bean id="cf" class="com.yedam.app.xml.Chef" /> <bean class="com.yedam.app.xml."> 
+		생성자 인젝션 ref = 위에 선언된 bean중에 해당값을 강제적으로 가져오는것 <constructor-arg ref="cf" /> 
+		세터 인젝션 <property name="chef" ref="cf" /> </bean> -->
+
+	<!-- DI : 어노테이션 방식 -->
+	<!-- base-package 특정 하위 패키지를 모두 검색하는것 -->
+	<!-- <context:component-scan base-package="com.yedam.app.anotation" /> -->
+
+	<!-- DI: 자바 베이스 방식 -->
+	<context:component-scan
+		base-package="com.yedam.app.javabase" />
+
+</beans>
