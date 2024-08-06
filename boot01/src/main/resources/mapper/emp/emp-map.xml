@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- emp-map.xml -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.app.emp.mapper.EmpMapper">
+	<!-- 전체 조회 -->
+	<select id="selectEmpAtllList" resultType="EmpVO">
+		SELECT employee_id,
+		first_name,
+		last_name,
+		email,
+		phone_number,
+		hire_date,
+		job_id,
+		salary,
+		commission_pct,
+		manager_id,
+		department_id
+		from employees
+		<!-- Dynamic sql -->
+		<!-- 검색 조건이 있을때는 where을 태그를 사용한다. -->
+		<!-- 필드를 기준으로 조건을 삼아야함. -->
+		<where>
+			<if test="departmentId>0">
+				OR department_id = #{departmentId}
+			</if>
+			<if test="jobId != null and !jobId.equals('')">
+				OR job_id = #{jobId}
+			</if>
+		</where>
+		<!-- where department_id = 100 -->
+		Order by employee_id
+	</select>
+	<!-- 단건 조회 -->
+	<select id="selectEmpInfo" resultType="EmpVO">
+		SELECT employee_id,
+		first_name,
+		last_name,
+		email,
+		phone_number,
+		hire_date,
+		job_id,
+		salary,
+		commission_pct,
+		manager_id,
+		department_id
+		from employees
+		where employee_id = #{employeeId}
+		<!-- #{}: PreparedStatement = > 데이터 타입에 따라 작업 where job_id = 'IT' -->
+		<!-- ${}: Statement = > 데이터 타입을 상관하지 않음 where job_id = IT -->
+		<!-- select * from employees where ${} = '' ; 컬럼 위치를 대신 사용함 예를들어 쇼핑 검색시 
+			필터에서 선택될수도 있고 안될수도 있어서 해당 부분에 사용함. -->
+
+	</select>
+
+	<!-- 등록 -->
+	<insert id="insertEmpInfo" parameterType="EmpVO">
+		<!-- 시퀀스 대신의 사용하는 방법 nvl 초기값이 없을경우 null이 오기때문에 해당 부분을 처리해서 0을 줌 -->
+		<!-- EmpVo 중에 하나를 덮어씀 (파라미터 값으로 넘어옴..) -->
+		<selectKey keyProperty="employeeId"
+				   resultType="Integer"
+				   order="BEFORE">
+			select NVL(max(employee_id),0) + 1
+			from employees
+		</selectKey>
+		
+		Insert INTO employees
+		(
+				employee_id
+				,last_name
+				,email
+				,job_id
+				,hire_date
+				<if test = "salary >0">
+				,salary
+				</if>
+			)
+			VALUES
+			(
+				#{employeeId}
+				,#{lastName}
+				,#{email}
+				,#{jobId}
+				<choose>
+					<when test = "hireDate != null">
+						,#{hireDate}
+					</when>
+					<otherwise>
+						,sysdate
+					</otherwise>
+				</choose>
+				<if test = "salary >0">
+				,#{salary}
+				</if>
+			)
+	<!-- choose 컬럼 값에 대해서 적용함 -->
+
+	</insert>
+	<!-- 수정 -->
+	<update id="updateEmpInfo">
+		UPDATE employees
+		SET
+			last_name = #{emp.lastName}
+			,job_id = #{emp.jobId}
+			<if test="emp.salary>0">
+			,salary = #{emp.salary}
+			</if>
+		WHERE employee_id = #{id}
+
+	</update>
+	<!-- 삭제 -->
+	<!-- empId 대신에 eid를 사용해두됨 이유는 넘오는 값이 int 값의 한정되어있기때문에
+	그냥 잡아다가 넣어버림. 그래서 이름은 큰 관계는 없다. -->
+	<delete id="deleteEmpInfo" parameterType="int">
+		DELETE FROM employees
+		WHERE employee_id = #{empId}
+	</delete>
+	
+</mapper>
