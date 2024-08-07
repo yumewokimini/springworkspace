@@ -2,6 +2,7 @@ package com.yedam.app.test.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,4 +15,12 @@ public class URLController {
 	public String urlGetTest(String keyword) {
 		return "Server Reponser : Get Method\n Select - " + keyword;//응답여부
 	}	
+	
+//	@RequestMapping(path="/test",method=RequestMethod.POST)
+	@PostMapping("/test")
+	@ResponseBody
+	public String urlPostTest(String keyword) {
+		return "Server Reponser : Post Method\n Select - " + keyword;//응답여부
+	}	
+	
 }

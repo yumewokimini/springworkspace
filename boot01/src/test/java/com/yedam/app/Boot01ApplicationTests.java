@@ -53,7 +53,7 @@ class Boot01ApplicationTests {
 //	업데이트
 	@Test
 	public void empUpdate() {
-//		1) 대상 원래 데이터 조회 :단건조회
+//	8	1) 대상 원래 데이터 조회 :단건조회
 		EmpVO empVO = new EmpVO();
 		empVO.setEmployeeId(4321);
 		
