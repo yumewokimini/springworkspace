@@ -77,14 +77,14 @@ public class EmpController {
 			//정상적으로 등록된 경우
 			url = "redirect:empInfo?employeeId = " + eid;
 		}else {
-			//등록되지 않은 경우
+			//등록되지 않은 경우 redirect 의 뒤에 page가 아닌 url의 경로를 다시 신청하는것.
 			url = "redirect:empList";
 		}
 		return url; 
 	}
 	
 	
-	//수정 - 페이지 : Get <=> 단건조회
+//	수정 - 페이지 : Get <=> 단건조회
 	@GetMapping("empUpdate")
 	public String empUpdateForm(EmpVO empVO, Model model) {
 		EmpVO findVO = empService.empInfo(empVO);
