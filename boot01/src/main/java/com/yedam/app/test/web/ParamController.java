@@ -60,9 +60,9 @@ public class ParamController {
 		result += "\t id : " +id;
 		return result;
 	}
-	
+//	-------------------------------------------------------
 	//@RequestBody : Json 포맷, or 객체
-	//Method : post,put
+	//Method : post,put 고정
 	//Content-type : application/json
 	@PostMapping("resbody")
 	@ResponseBody

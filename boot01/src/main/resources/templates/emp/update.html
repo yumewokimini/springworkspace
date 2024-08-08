@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+	<form name="updateForm" th:object="${emp}">
+		<h3>사원 정보 수정</h3>
+		<div>
+			<label for="ename">사원번호</label> 
+			<!-- field 정확한점 1. 변수 이름값이 다르면 안열림. id와 같은 부분을 자동적으로 생성해줌. -->
+			<input type="text" name="employeeid" th:field = "*{employeeId}" readonly>
+		</div>
+		<div>
+			<label for="ename">이름</label>
+			<input type="text" id="ename" th:value = "${emp.lastName}"  name="lastName" >
+		</div>
+		<div>
+			<label for="email">이메일</label> 
+			<input type="text" id="email" th:field = "*{email}" name="email" >
+		</div>
+		<div>
+			<label for="hDate">입사일</label> 
+			<input type="date" id="hDate" th:value="${#dates.format(emp.hireDate,'yyyy-MM-dd')}" name="hireDate" >
+		</div>
+		<div>
+			<label for="job">업무</label> 
+			<input type="text" id="job" th:field = "*{jobId}" name="jobId" >
+		</div>
+		<div>
+			<label for="sal">급여</label> 
+			<input type="text" id="sal" th:field = "*{salary}" name="salary" >
+		</div>
+		<div>
+			<!-- ||문자열로 인식되는것을 코드화 인식하게 만드는것. -->
+			<button type="button" id="updateBtn">등록</button>
+		</div>
+		<script>
+		
+			$('#updateBtn').on('click',function(event){
+				/* 1) 보낼 데이터 가져오기 */
+				let dataObj = getFormData();
+			
+				/* 2) AJAX */
+/* 				$.ajax('empUpdate',{
+					type : 'Post' , //method
+					//contentType : '',
+					data : dataObj   //body	
+				})
+				.done(result => {
+					console.log(result);
+				})
+				.fail(err => console.log(err));
+			}) 
+			*/
+			
+				$.ajax('empUpdate',{
+					type : 'Post' , //method
+					contentType : 'application/json',
+					data : JSON.stringify(dataObj)   //body	
+				})
+				.done(result => {
+					console.log(result);
+				})
+				.fail(err => console.log(err));
+			})
+			
+			function getFormData(){
+				let formAry = $('form[name="updateForm"]').serializeArray();
+				
+				let formObj = {};
+				$.each(formAry,function(idx,tag){
+					console.log(idx,tag);
+					console.log('key',tag.name);
+					console.log('value',tag.name);
+					console.log(tag.name + ' : ' + tag.value);
+	
+					formObj[tag.name]=tag.value;
+				});
+				 console.clear(); 
+				console.log(formObj);
+				return formObj;
+			}
+		</script>
+	</form>
+</body>
+</html>

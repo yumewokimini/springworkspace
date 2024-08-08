@@ -20,6 +20,9 @@ public class ThymeleafController {
 		empVO.setEmployeeId(100);
 		
 		EmpVO findVO = empService.empInfo(empVO);
+		
+//		값을 페이지로 전달함
+//		empInfo 화면단에 다루는 변수
 		model.addAttribute("empInfo", findVO);
 		return "test";
 	}

@@ -1,11 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<!-- ajax -->
+<meta name="contextPath" th:value="${contextPath}">
+<!-- <meta name="contextPath"
+	th:value="${#httpServletRequest.getContextPath()}"> -->
+<!--  3.xx 이상 버전에서 request,섹션등 사용불가. -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
+	<div>
+		<h3>전체 조회</h3>
+		<table>
+			<thead>
+				<tr>
+					<th>No.</th>
+					<th>사원번호</th>
+					<th>이름</th>
+					<th>입사일자</th>
+					<th>업무</th>
+				</tr>
+			</thead>
+			<tbody>
+				<th:block th:each="num,index : ${emps}">
+					<!-- <tr onclick="location.href='@{/empInfo?employeeId=100}'"> -->
+					<!-- <tr th:onclick="|location.href='@{/empInfo(employeeId=${num.employeeId})}'|" -->
+					<tr>
+						<td th:text=${index.count} />
+						<td th:text="${num.employeeId}" />
+						<td th:text="${num.lastName}" />
+						<!-- /*<td>[[${num.hireDate}]]</td>*/ -->
+						<td>[[${#dates.format(num.hireDate,'yyyy년 MM월 dd일')}]]</td>
+						<td>[[${num.jobId}]]</td>
+					</tr>
+				</th:block>
+			</tbody>
+		</table>
+	</div>
+	<script>
+	<!-- ajax -->
+ 		const context = $('meta[name="contextPath"]').attr('value');
 
-	<h1>전체조회</h1>
+		$('tbody > tr').on("click", function(event) {
+			let tr = event.currentTarget;
+			let eid = $(event.currentTarget).children().eq(1).text();
+			let url = context + '/empInfo?employeeId=' + eid;
+			location.href = url;
+		});  
+	</script>
 </body>
 </html>

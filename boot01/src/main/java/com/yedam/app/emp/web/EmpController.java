@@ -64,7 +64,7 @@ public class EmpController {
 	//등록 - 페이지 : GET
 	@GetMapping("empInsert")
 	public String empInsertForm() {		
-		return "emp.insert";
+		return "emp/insert";
 	}
 	
 	//등록 - 처리 : Post => form 태그를 통한 submit
@@ -75,7 +75,7 @@ public class EmpController {
 		String url = null;
 		if(eid > -1) {
 			//정상적으로 등록된 경우
-			url = "redirect : empInfo? employeeId = " + eid;
+			url = "redirect:empInfo?employeeId = " + eid;
 		}else {
 			//등록되지 않은 경우
 			url = "redirect:empList";
@@ -93,19 +93,20 @@ public class EmpController {
 	}
 	
 	//수정 - 처리 : AJAX = QueryString
-	@PostMapping("empUpdate")
-	@ResponseBody
-	public Map<String,Object> empupdateAJAXQueryString(EmpVO empVO){
-		return empService.empUpdate(empVO);
-	}
+	/*
+	 * @PostMapping("empUpdate")
+	 * 
+	 * @ResponseBody public Map<String,Object> empupdateAJAXQueryString(EmpVO
+	 * empVO){ return empService.empUpdate(empVO); }
+	 */
 	
 //	//수정 - 처리 : AJAX = JSON
-//	@PostMapping("empUpdate")
-//	@ResponseBody
-//	public Map<String,Object> empupdateAJAXJSON(@RequestBody EmpVO empVO){
-//		return empService.empUpdate(empVO);
-//	}
-	
+
+	  @PostMapping("empUpdate")  
+	  @ResponseBody 
+	  public Map<String,Object> empupdateAJAXJSON(@RequestBody EmpVO empVO){ 
+		  return empService.empUpdate(empVO);
+	  }
 	//삭제 - 처리 : GET ajax 권장안함 : 삭제하면 사용자입장에서 그대로 보일수있음
 	@GetMapping("empDelete")
 	public String empDelete(Integer employeeId) {

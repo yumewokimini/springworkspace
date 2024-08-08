@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title></title>
+</head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<body>
+	<form th:action="@{/empInsert}" method="POST" name="insertForm">
+		<h3>사원 정보 등록</h3>
+
+		<div>
+			<label for="ename">이름</label> <input type="text" id="ename" name="lastName">
+		</div>
+		<div>
+			<label for="email">이메일</label> <input type="text" id="email" name="email">
+		</div>
+		<div>
+			<label for="hDate">입사일</label> <input type="date" id="hDate" name="hireDate">
+		</div>
+		<div>
+			<label for="job">업무</label> <input type="text" id="job" name="jobId">
+		</div>
+		<div>
+			<label for="sal">급여</label> <input type="text" id="sal" name="salary">
+		</div>
+		<div>
+			<!-- ||문자열로 인식되는것을 코드화 인식하게 만드는것. -->
+			<button type="submit">등록</button>
+		</div>
+	</form>
+	<script>
+	$('form[name="insertForm"]').on('submit',insertHandeler);
+		
+	function insertHandeler(event){
+		event.preventDefault();
+		
+		let name = $('input[name="lastName"]');
+		if(name.val() == ''){
+			alert('이름이 입력되지 않았습니다. ');
+			name.focus();
+			return;
+		}
+		
+		let email = $('input[name="email"]');
+		if(email.val() == ''){
+			alert('이메일이 입력되지 않았습니다. ');
+			name.focus();
+			return;
+		}
+		
+		let hDate = $('input[name="hireDate"]');
+		if(hDate.val() == ''){
+			alert('날짜이 입력되지 않았습니다. ');
+			name.focus();
+			return;
+		}
+		
+		let job = $('input[name="jobId"]');
+		if(job.val() == ''){
+			alert('일이 입력되지 않았습니다. ');
+			name.focus();
+			return;
+		}
+		
+		let sal = $('input[name="salary"]');
+		if(sal.val() <= 0){
+			alert('급여이 입력되지 않았습니다. ');
+			name.focus();
+			return;
+		}
+		
+		//네임속성
+		insertForm.submit();
+	}
+	
+	</script>
+</body>
+</html>

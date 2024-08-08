@@ -5,10 +5,34 @@
 <title>꼬르ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ륶</title>
 </head>
 <body>
+<!-- java로 만들어진 라이브러리 권장하지는 않음 -->
 	<h1>타임리프테스트</h1>
-	<!-- thymeleaf,유일한 태그 (th:block) -->
+	<!--/* thymeleaf,유일한 태그 (th:block) [[]] */-->
+	<!-- /**/ 타임리퍼 파서주석 사용자에게 안보이기위한 주석 자바스크립트의 ``와 같은 기능
+	     HTML안에 는 사용 불가함-->
 	<th:block th:each="num : ${#numbers.sequence(1,5)}">
 		<p th:text="${num}"/>
 	</th:block>
+	
+	<!-- /*타임리프 기본 방식
+			1) th:속성="${}"(속성을 가져야하는 값 , 변수표현식)*/ 
+			
+			2) th:src or th:href of thLaction = "@{}" (연결되는 링크 관련 사용법)
+							
+			-->
+			<!-- /* th를 붙으면은 java 코드를 인식함 th:text="'전체조회'"*/ -->
+			<a th:href="@{/empList}" th:text="'전체조회'"/>
+			
+			<a href="/empList">전체조회</a> 
+			<a href="/empList">사원정보 : [[${empInfo.lastName}]]</a> 
+			
+			<hr>
+			<p>[[${empInfo}]]</p>
+			<p>[[${empInfo.employeeId}]]</p>
+			<p th:id="${empInfo.employeeId}"
+			   th:name="${empInfo.lastName}"
+			   th:text="${empInfo.jobId + ', ' + empInfo.departmentId}"/>
+			
+			
 </body>
 </html>
