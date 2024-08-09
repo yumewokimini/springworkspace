@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<!-- pdf p.22 외부레이어아웃 사용 -->
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<head>
+<meta charset="UTF-8">
+<th:block th:replace="~{common/configs/default_config :: BootstrapConfig}" />
+<th:block th:replace="~{common/configs/default_config :: jQueryConfig}" />
+</head>
+<body>
+	<header th:insert="common/fragments/header :: HeaderFrag"></header>
+	<main>
+		<th:block layout:fragment="Content"></th:block>
+	</main>
+	<!-- 대체 할것임 이유:footer.html 안에 이미 또다른 footer가 존재하기때문 -->
+	<footer th:replace="common/fragments/footer :: Footerfrag"></footer>
+</body>
+</html>

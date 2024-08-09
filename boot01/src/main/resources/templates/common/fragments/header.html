@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<!-- html 사용안해두됨 이유 : 헤더 혼자서 사용할일이 없기때문 -->
+<div xmlns:th="https://www.thymeleaf.org" th:fragment="HeaderFrag">
+	<ul class="nav nav-pills nav-justified">
+		<li class="nav-item"><a class="nav-link active"
+			aria-current="page" th:href="@{/empList}">전체 사원 조회</a></li>
+		<li class="nav-item"><a class="nav-link" th:href="@{/empInsert}">사원등록</a></li>
+	</ul>
+</div>

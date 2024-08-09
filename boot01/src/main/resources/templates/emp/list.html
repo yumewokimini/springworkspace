@@ -1,5 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{common/layouts/defult_layouts}"
+	layout:fragment="Content">	
+	<!-- 외부 라이브러리가 지원하는것 layout:decorate 전부 읽어 들고 비어있는 공간을 확인후 집어넣는것
+	기존의 타일즈와 다른것이 해당 부분을 불러 오는것이였다는것과 현재는 집어 넣는것-->
+
 <head>
 <meta charset="UTF-8">
 <!-- ajax -->
@@ -7,12 +13,20 @@
 <!-- <meta name="contextPath"
 	th:value="${#httpServletRequest.getContextPath()}"> -->
 <!--  3.xx 이상 버전에서 request,섹션등 사용불가. -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <title>Insert title here</title>
+
+<!-- 기존의 jquery 삭제 -->
+<!-- 대체함 참고: 스프링부트v5_mybatis.pdf p17 -->
+<!-- 단순 이름이아닌 파일까지 찾아가야함. -->
+<!-- :: 기준으로 앞은 경로 뒤는 이름 -->
+<th:block th:replace="~{common/configs/default_config :: jQueryConfig}"></th:block>
 </head>
 <body>
 	<div>
+	
+<!-- 하위에 넣을 경우 사용함 또한 body에서 많이 사용함 -->
+<!-- 	<div th : insert = ""></div> -->
+
 		<h3>전체 조회</h3>
 		<table>
 			<thead>
